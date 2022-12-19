@@ -7,9 +7,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/coreos/go-systemd/dbus"
-	"github.com/vranystepan/unit-reloader/pkg/config"
-	dbusImpl "github.com/vranystepan/unit-reloader/pkg/dbus"
-	sqsImpl "github.com/vranystepan/unit-reloader/pkg/sqs"
+	"github.com/pipetail/unit-reloader/pkg/config"
+	dbusImpl "github.com/pipetail/unit-reloader/pkg/dbus"
+	sqsImpl "github.com/pipetail/unit-reloader/pkg/sqs"
 )
 
 func Run(ctx context.Context, cfg *config.Config, sqsClient *sqs.SQS, dbusClient *dbus.Conn) {

@@ -1,4 +1,4 @@
-module github.com/vranystepan/unit-reloader
+module github.com/pipetail/unit-reloader
 
 go 1.19
 

@@ -7,8 +7,8 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/coreos/go-systemd/dbus"
-	"github.com/vranystepan/unit-reloader/internal/reloader"
-	"github.com/vranystepan/unit-reloader/pkg/config"
+	"github.com/pipetail/unit-reloader/internal/reloader"
+	"github.com/pipetail/unit-reloader/pkg/config"
 )
 
 func main() {

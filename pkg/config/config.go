@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/vranystepan/unit-reloader/pkg/util"
+	"github.com/pipetail/unit-reloader/pkg/util"
 )
 
 type Config struct {

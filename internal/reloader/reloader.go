@@ -4,8 +4,6 @@ import (
 	"context"
 	"log"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/coreos/go-systemd/dbus"
 	"github.com/pipetail/unit-reloader/pkg/config"
 	dbusImpl "github.com/pipetail/unit-reloader/pkg/dbus"
@@ -16,13 +14,7 @@ func Run(ctx context.Context, cfg *config.Config, sqsClient sqsImpl.SqsClinet, d
 
 	// consume messages in loop
 	for {
-
-		output, err := sqsClient.ReceiveMessage(&sqs.ReceiveMessageInput{
-			QueueUrl:            &cfg.QueueURL,
-			MaxNumberOfMessages: aws.Int64(int64(cfg.QueueMaxMessages)),
-			WaitTimeSeconds:     aws.Int64(int64(cfg.QueueWaitTime)),
-		})
-
+		output, err := sqsImpl.Receive(sqsClient, cfg.QueueURL, cfg.QueueMaxMessages, cfg.QueueWaitTime)
 		if err != nil {
 			log.Printf("could not receive SQS messages: %s", err)
 		}

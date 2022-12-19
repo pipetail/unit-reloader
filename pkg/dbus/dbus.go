@@ -3,11 +3,9 @@ package dbus
 import (
 	"context"
 	"fmt"
-
-	"github.com/coreos/go-systemd/dbus"
 )
 
-func Do(ctx context.Context, dbusClient *dbus.Conn, unit string, action string) error {
+func Do(ctx context.Context, dbusClient DbusClient, unit string, action string) error {
 	switch action {
 	case "start":
 		return Start(ctx, dbusClient, unit)
@@ -20,17 +18,23 @@ func Do(ctx context.Context, dbusClient *dbus.Conn, unit string, action string) 
 	}
 }
 
-func Restart(ctx context.Context, dbusClient *dbus.Conn, unit string) error {
+func Restart(ctx context.Context, dbusClient DbusClient, unit string) error {
 	_, err := dbusClient.RestartUnitContext(ctx, unit, "replace", nil)
 	return err
 }
 
-func Start(ctx context.Context, dbusClient *dbus.Conn, unit string) error {
+func Start(ctx context.Context, dbusClient DbusClient, unit string) error {
 	_, err := dbusClient.StartUnitContext(ctx, unit, "replace", nil)
 	return err
 }
 
-func Stop(ctx context.Context, dbusClient *dbus.Conn, unit string) error {
+func Stop(ctx context.Context, dbusClient DbusClient, unit string) error {
 	_, err := dbusClient.StopUnitContext(ctx, unit, "replace", nil)
 	return err
+}
+
+type DbusClient interface {
+	StopUnitContext(ctx context.Context, name string, mode string, ch chan<- string) (int, error)
+	StartUnitContext(ctx context.Context, name string, mode string, ch chan<- string) (int, error)
+	RestartUnitContext(ctx context.Context, name string, mode string, ch chan<- string) (int, error)
 }

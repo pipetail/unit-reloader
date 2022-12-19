@@ -12,13 +12,14 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	cfg, err := config.New()
 	if err != nil {
 		log.Fatalf("could not load configuration: %s", err)
 	}
 
 	// initialize dbus client
-	dbusClient, err := dbus.New()
+	dbusClient, err := dbus.NewWithContext(ctx)
 	if err != nil {
 		log.Fatalf("could not initialize dbus client: %s", err)
 	}
@@ -30,6 +31,5 @@ func main() {
 	sqsClient := sqs.New(sess)
 
 	// start the main loop
-	ctx := context.Background()
 	reloader.Run(ctx, cfg, sqsClient, dbusClient)
 }

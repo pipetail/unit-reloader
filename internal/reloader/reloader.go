@@ -12,7 +12,7 @@ import (
 	sqsImpl "github.com/pipetail/unit-reloader/pkg/sqs"
 )
 
-func Run(ctx context.Context, cfg *config.Config, sqsClient *sqs.SQS, dbusClient *dbus.Conn) {
+func Run(ctx context.Context, cfg *config.Config, sqsClient sqsImpl.SqsClinet, dbusClient *dbus.Conn) {
 
 	// consume messages in loop
 	for {
